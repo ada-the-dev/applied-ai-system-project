@@ -25,7 +25,7 @@ Now, for my particular music recommender simulation, a weighted proximity scorin
 
 Each song will receive a score in the range [0.0, 1.0]. The score is a weighted sum of four sub-scores, and then this score is divided by the total possible points (8 points) to normalize it. In particular, the genre, mood, energy, and acousticness features of each song will scored against the user profile's genre, mood, energy, and acousticness.
 
-While this recommendation system will be able to better recommend songs that match a user's mood and overall preference, one potential drawback to the weight decision, and, therefore the recommedation algorithm, is that users who greatly value genre over mood (a.k.a. "genre-loyalists") will have a higher chance of being exposed to song genres that do align with their preferences and music-related boundaries.
+While this recommendation system will be able to better recommend songs that match a user's mood and overall preference, one potential drawback to the weight decision, and, therefore the recommedation algorithm, is that users who greatly value genre over mood (a.k.a. "genre-loyalists") will have a higher chance of being exposed to song genres that do not align with their preferences and music-related boundaries.
 
 Here is a Mermaid Live that describes the data flow of my proposed and implemented music recommendation system:
 

@@ -20,7 +20,7 @@ The model uses a weighted proximity scoring algorithm that compares each song to
 
 ## 4. Data  
 
-The dataset contains 10 songs from a CSV file called songs.csv. It includes a mix of genres like pop, lofi, rock, ambient, jazz, synthwave, and indie pop, with moods such as happy, chill, intense, relaxed, moody, focused. The songs have numeric features for energy, tempo, valence, danceability, and acousticness. No songs were added or removed, and the dataset lacks features like lyrics, artist popularity, or user interaction data, which limits its representation of full musical taste.  
+The dataset contains 10 songs from a CSV file called songs.csv. It includes a mix of genres like pop, lofi, rock, ambient, jazz, synthwave, and indie pop, with moods such as happy, chill, intense, relaxed, moody, focused. The songs have numeric features for energy, tempo, valence, danceability, and acousticness. The dataset lacks features like lyrics, artist popularity, or user interaction data, which limits its representation of full musical taste.  
 
 ---
 
@@ -58,10 +58,16 @@ Room for improvement will include making changes in our system that rewards simi
 
 ## 8. Future Work  
 
-To improve, I could add more features like tempo, valence, or danceability to the scoring. Better explanations could include why a song was recommended beyond just the score. To increase diversity, the system could include a penalty for recommending too many songs from the same artist or genre. For complex tastes, it could handle multiple preferred genres or moods instead of just one.  
+To improve, I could add more features like tempo, valence, or danceability to the scoring. For complex tastes, it could handle multiple preferred genres or moods instead of just one.  
 
 ---
 
 ## 9. Personal Reflection  
 
-I learned that recommender systems balance exact matches with proximity measures to create personalized suggestions, and small changes like weight adjustments can significantly affect results. It was surprising how halving genre weight and doubling energy weight made the system more vibe-focused. This experience made me appreciate how real apps like Spotify must handle vast data and user diversity to avoid filter bubbles.  
+My biggest learning moment during this project was seeing the work that is done behind the scenes that enables a system to choose and recommend songs. 
+
+AI tools helped me when I needed to double check my work or to explore suggestions/changes quickly before implementing them in the codebase.
+
+What surprised me is how recommendations are calculated using math. As I mentioned earlier, I learned that recommendation systems are magic; numbers and values are being crunched behind the scenes in an systematic manner.
+
+What would I try next if extend this project is to have this system reward simliarities in genre and mood.
