@@ -1,0 +1,142 @@
+[
+    {
+        "song_id": 1,
+        "title": "Sunrise City",
+        "description": "A bright and energetic pop track with high danceability and low acousticness, ideal for morning motivation and upbeat commutes.",
+        "mood_summary": "Happy and positive, with high valence and energy.",
+        "listening_context": "Perfect for starting the day, workouts, or driving with the windows down."
+    },
+    {
+        "song_id": 2,
+        "title": "Midnight Coding",
+        "description": "A mellow lo-fi beat with moderate energy and high acousticness, featuring a chill vibe and steady tempo.",
+        "mood_summary": "Chill and relaxed, suitable for focused work or late-night sessions.",
+        "listening_context": "Great for coding, studying, or unwinding after a long day."
+    },
+    {
+        "song_id": 3,
+        "title": "Storm Runner",
+        "description": "An intense rock track with very high energy, fast tempo, and low acousticness, evoking a sense of power and intensity.",
+        "mood_summary": "Intense and energetic, with low valence for a darker tone.",
+        "listening_context": "Ideal for high-intensity workouts, running, or releasing built-up energy."
+    },
+    {
+        "song_id": 4,
+        "title": "Library Rain",
+        "description": "A soft lo-fi track with low energy, high acousticness, and a relaxed tempo, mimicking a quiet library atmosphere.",
+        "mood_summary": "Chill and peaceful, perfect for concentration.",
+        "listening_context": "Excellent for studying in libraries, reading, or background music during quiet tasks."
+    },
+    {
+        "song_id": 5,
+        "title": "Gym Hero",
+        "description": "A high-energy pop track with intense danceability, very low acousticness, and a fast tempo for gym motivation.",
+        "mood_summary": "Intense and happy, boosting motivation with high valence.",
+        "listening_context": "Best for gym workouts, cardio sessions, or pumping up before a challenge."
+    },
+    {
+        "song_id": 6,
+        "title": "Spacewalk Thoughts",
+        "description": "An ambient track with very low energy, high acousticness, and a slow tempo, creating a dreamy, introspective atmosphere.",
+        "mood_summary": "Chill and reflective, with moderate valence.",
+        "listening_context": "Suitable for meditation, stargazing, or creative thinking in quiet spaces."
+    },
+    {
+        "song_id": 7,
+        "title": "Coffee Shop Stories",
+        "description": "A relaxed jazz track with moderate energy, high acousticness, and a steady tempo, evoking a cozy coffee shop vibe.",
+        "mood_summary": "Relaxed and pleasant, with high valence.",
+        "listening_context": "Perfect for coffee shop visits, casual conversations, or light reading."
+    },
+    {
+        "song_id": 8,
+        "title": "Night Drive Loop",
+        "description": "A moody synthwave track with moderate energy, low acousticness, and a mid-tempo beat for nighttime drives.",
+        "mood_summary": "Moody and atmospheric, with low valence for a nostalgic feel.",
+        "listening_context": "Ideal for late-night drives, city exploration, or introspective moments."
+    },
+    {
+        "song_id": 9,
+        "title": "Focus Flow",
+        "description": "A focused lo-fi track with moderate energy, high acousticness, and a steady tempo to aid concentration.",
+        "mood_summary": "Focused and chill, balancing energy and calm.",
+        "listening_context": "Great for work sessions, studying, or maintaining productivity."
+    },
+    {
+        "song_id": 10,
+        "title": "Rooftop Lights",
+        "description": "An indie pop track with high energy, moderate acousticness, and upbeat tempo for happy, social gatherings.",
+        "mood_summary": "Happy and vibrant, with high valence and danceability.",
+        "listening_context": "Perfect for rooftop parties, celebrations, or evening outings."
+    },
+    {
+        "song_id": 11,
+        "title": "Crown Heights",
+        "description": "A confident hip-hop track with high energy, low acousticness, and a mid-tempo rhythm for self-assurance.",
+        "mood_summary": "Confident and upbeat, with high valence.",
+        "listening_context": "Ideal for motivational moments, urban walks, or building confidence."
+    },
+    {
+        "song_id": 12,
+        "title": "Morning Sonata",
+        "description": "A peaceful classical piece with very low energy, high acousticness, and slow tempo for serene mornings.",
+        "mood_summary": "Peaceful and calm, with high valence.",
+        "listening_context": "Excellent for morning routines, yoga, or quiet reflection."
+    },
+    {
+        "song_id": 13,
+        "title": "Velvet Hours",
+        "description": "A romantic R&B track with moderate energy, moderate acousticness, and a smooth tempo for intimate moments.",
+        "mood_summary": "Romantic and warm, with high valence.",
+        "listening_context": "Perfect for dates, evenings in, or romantic dinners."
+    },
+    {
+        "song_id": 14,
+        "title": "Dusty Back Roads",
+        "description": "A nostalgic country track with moderate energy, high acousticness, and steady tempo evoking rural memories.",
+        "mood_summary": "Nostalgic and reflective, with moderate valence.",
+        "listening_context": "Great for road trips, reminiscing, or countryside drives."
+    },
+    {
+        "song_id": 15,
+        "title": "Pulse Protocol",
+        "description": "An euphoric EDM track with very high energy, low acousticness, and fast tempo for dance floors.",
+        "mood_summary": "Euphoric and intense, with high valence and danceability.",
+        "listening_context": "Ideal for clubs, festivals, or high-energy parties."
+    },
+    {
+        "song_id": 16,
+        "title": "Empty Porch",
+        "description": "A melancholic folk track with low energy, high acousticness, and slow tempo for contemplative moods.",
+        "mood_summary": "Melancholy and introspective, with low valence.",
+        "listening_context": "Suitable for quiet evenings, journaling, or emotional processing."
+    },
+    {
+        "song_id": 17,
+        "title": "Iron Fault Line",
+        "description": "An angry metal track with very high energy, low acousticness, and fast tempo for intense releases.",
+        "mood_summary": "Angry and powerful, with low valence.",
+        "listening_context": "Perfect for venting frustration, heavy workouts, or cathartic listening."
+    },
+    {
+        "song_id": 18,
+        "title": "Shoreline Sunday",
+        "description": "An upbeat reggae track with moderate energy, moderate acousticness, and steady tempo for relaxed weekends.",
+        "mood_summary": "Upbeat and positive, with high valence.",
+        "listening_context": "Great for beach days, barbecues, or casual gatherings."
+    },
+    {
+        "song_id": 19,
+        "title": "Golden Static",
+        "description": "A romantic pop track with moderate energy, low acousticness, and mid-tempo for warm, nostalgic feelings.",
+        "mood_summary": "Romantic and happy, with high valence.",
+        "listening_context": "Ideal for romantic evenings, memory lane, or cozy nights."
+    },
+    {
+        "song_id": 20,
+        "title": "Sunday Soul",
+        "description": "A happy soul track with moderate energy, moderate acousticness, and steady tempo for soulful vibes.",
+        "mood_summary": "Happy and soulful, with high valence and danceability.",
+        "listening_context": "Perfect for Sunday mornings, family time, or uplifting moments."
+    }
+]
