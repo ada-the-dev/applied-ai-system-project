@@ -2,110 +2,66 @@
 
 ## 1. Model Name  
 
-Give your model a short, descriptive name.  
-Example: **VibeFinder 1.0**  
+Music_Librarian
 
 ---
 
 ## 2. Intended Use  
 
-Describe what your recommender is designed to do and who it is for. 
-
-Prompts:  
-
-- What kind of recommendations does it generate  
-- What assumptions does it make about the user  
-- Is this for real users or classroom exploration  
+This recommender generates top song recommendations based on a user's preferred genre, mood, energy level, and acousticness preference. It assumes users have clear, specific tastes and recommends songs that closely match those preferences. This is designed for classroom exploration and learning about recommendation systems, not for real-world production use with actual users.  
 
 ---
 
 ## 3. How the Model Works  
 
-Explain your scoring approach in simple language.  
-
-Prompts:  
-
-- What features of each song are used (genre, energy, mood, etc.)  
-- What user preferences are considered  
-- How does the model turn those into a score  
-- What changes did you make from the starter logic  
-
-Avoid code here. Pretend you are explaining the idea to a friend who does not program.
+The model uses a weighted proximity scoring algorithm that compares each song to a user's profile. It looks at four key features: genre, mood, energy, and acousticness. For genre and mood, it gives full points only for exact matches. For energy and acousticness, it calculates how close the song is to the user's target levels. The mood feature has the heaviest weight, making it a "mood-first" system. Each song gets a score between 0 and 1, and the top-ranked songs are recommended. This approach rewards songs that are close to the user's overall vibe.
 
 ---
 
 ## 4. Data  
 
-Describe the dataset the model uses.  
-
-Prompts:  
-
-- How many songs are in the catalog  
-- What genres or moods are represented  
-- Did you add or remove data  
-- Are there parts of musical taste missing in the dataset  
+The dataset contains 10 songs from a CSV file called songs.csv. It includes a mix of genres like pop, lofi, rock, ambient, jazz, synthwave, and indie pop, with moods such as happy, chill, intense, relaxed, moody, focused. The songs have numeric features for energy, tempo, valence, danceability, and acousticness. No songs were added or removed, and the dataset lacks features like lyrics, artist popularity, or user interaction data, which limits its representation of full musical taste.  
 
 ---
 
 ## 5. Strengths  
 
-Where does your system seem to work well  
-
-Prompts:  
-
-- User types for which it gives reasonable results  
-- Any patterns you think your scoring captures correctly  
-- Cases where the recommendations matched your intuition  
+The system works well for users with strong, specific preferences, such as those who prioritize mood over genre. It captures vibe-based matching effectively, recommending songs that feel right for the user's energy and acousticness levels. For example, it matched intuition for profiles like "lofi chill" or "pop happy," providing reasonable results when all features align closely.  
 
 ---
 
 ## 6. Limitations and Bias 
 
-Where the system struggles or behaves unfairly. 
+Even if a song has nearly the right energy and acousticness, the song's final recommendation score can still be negatively affected if it misses an exact match for either the genre or mood feature.
 
-Prompts:  
+This indicates that users with a rare genre or mood may be forced to a small set of songs whose genre and mood labels match with the user's profiles values. 
 
-- Features it does not consider  
-- Genres or moods that are underrepresented  
-- Cases where the system overfits to one preference  
-- Ways the scoring might unintentionally favor some users  
+Addtionally, this system does not reward similar genres or moods; only exact matches are rewarded.
+
+Furthermore, regarding the energy proximity consideration in our system, a song that is a little too high or too low energy will lose points, rather than being treated as only slightly different. This matters because say if a user's profile includes the genre and mood “jazz + relaxed,” then the one jazz-relaxed song in our data set will most likely be ranked first even if another song is actually much closer in energy and acoustic tone. This said, this is not a problem if this listener wants to strictly listen to jazz.
 
 ---
 
 ## 7. Evaluation  
 
-How you checked whether the recommender behaved as expected. 
+I have tested all three user profiles. These user profiles are implemented as user preference dictionaries. As expected, this model rewards exact matches for genre and mood and considers proximity for energy and acousticness in its recommendation algorithm.
 
-Prompts:  
+This model recommends songs that matches the "vibe" that listeners enjoy in their music. 
 
-- Which user profiles you tested  
-- What you looked for in the recommendations  
-- What surprised you  
-- Any simple tests or comparisons you ran  
+One thing I did find surprising while testing the sensitivity of my system is that when I doubled the importance of energy and halved the importance of genre via reassigning doubled and halved weights to these features, I found that decreasing the importance of genre helped the system recommend songs based on elements that would contribute to the song's vibe more (such as energy, acousticness, and mood). 
 
-No need for numeric metrics unless you created some.
+Additionally, by doubling the importance of energy proximity, I found that this led the system to reward a song's match to a user profile's desired "vibes" more. I also found that energy proximity is a more useful metric than I thought as it can be used to further reinforce that a different genre song being recommended can be similar in vibes to the user profile.
+
+Room for improvement will include making changes in our system that rewards similarity for genres and moods.
 
 ---
 
 ## 8. Future Work  
 
-Ideas for how you would improve the model next.  
-
-Prompts:  
-
-- Additional features or preferences  
-- Better ways to explain recommendations  
-- Improving diversity among the top results  
-- Handling more complex user tastes  
+To improve, I could add more features like tempo, valence, or danceability to the scoring. Better explanations could include why a song was recommended beyond just the score. To increase diversity, the system could include a penalty for recommending too many songs from the same artist or genre. For complex tastes, it could handle multiple preferred genres or moods instead of just one.  
 
 ---
 
 ## 9. Personal Reflection  
 
-A few sentences about your experience.  
-
-Prompts:  
-
-- What you learned about recommender systems  
-- Something unexpected or interesting you discovered  
-- How this changed the way you think about music recommendation apps  
+I learned that recommender systems balance exact matches with proximity measures to create personalized suggestions, and small changes like weight adjustments can significantly affect results. It was surprising how halving genre weight and doubling energy weight made the system more vibe-focused. This experience made me appreciate how real apps like Spotify must handle vast data and user diversity to avoid filter bubbles.  

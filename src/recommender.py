@@ -31,14 +31,15 @@ class UserProfile:
     target_acousticness: float
 
 # ---------------------------------------------------------------------------
-# Scoring weights — mood-first strategy
-# Mood outweighs genre so the recommender favours vibe over category label.
+# Scoring weights — energy-prioritized strategy
+# Energy is now more important, while mood is still more important than genre.
+# We combine categorical matches with numeric proximity to create a transparent score.
 # ---------------------------------------------------------------------------
-WEIGHT_GENRE        = 2
+WEIGHT_GENRE        = 1
 WEIGHT_MOOD         = 3
-WEIGHT_ENERGY       = 2
+WEIGHT_ENERGY       = 4
 WEIGHT_ACOUSTICNESS = 1
-MAX_SCORE = WEIGHT_GENRE + WEIGHT_MOOD + WEIGHT_ENERGY + WEIGHT_ACOUSTICNESS  # 8
+MAX_SCORE = WEIGHT_GENRE + WEIGHT_MOOD + WEIGHT_ENERGY + WEIGHT_ACOUSTICNESS  # 9
 
 class Recommender:
     """
