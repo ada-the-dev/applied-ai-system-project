@@ -8,7 +8,8 @@ import os
 import logging
 from typing import Optional
 from dotenv import load_dotenv
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -23,9 +24,7 @@ if not GEMINI_API_KEY:
     logger.error("GEMINI_API_KEY not found in environment variables. Please set it in .env file.")
     raise ValueError("GEMINI_API_KEY is required.")
 
-# Configure Gemini
-genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel("gemini-1.5-flash")  # Use the fast model for efficiency
+client = genai.Client(api_key=GEMINI_API_KEY)
 
 def generate_text(prompt: str, max_tokens: int = 500) -> Optional[str]:
     """
@@ -40,11 +39,12 @@ def generate_text(prompt: str, max_tokens: int = 500) -> Optional[str]:
     """
     try:
         logger.info("Sending prompt to Gemini API.")
-        response = model.generate_content(
-            prompt,
-            generation_config=genai.types.GenerationConfig(
+        response = client.models.generate_content(
+            model="gemini-2.0-flash",
+            contents=prompt,
+            config=types.GenerateContentConfig(
                 max_output_tokens=max_tokens,
-                temperature=0.7,  # Balanced creativity
+                temperature=0.7,
             )
         )
         if response and response.text:
