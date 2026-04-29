@@ -1,75 +1,47 @@
 """
-Command line runner for the Music Recommender Simulation.
+Command line runner for the AI-powered Music Recommender with RAG.
 
-This file helps you quickly run and test your recommender.
-
-You will implement the functions in recommender.py:
-- load_songs
-- score_song
-- recommend_songs
+This file accepts a plain-English user request and provides RAG-based recommendations.
 """
 
-from src.recommender import load_songs, recommend_songs
+from src.recommender import load_songs, Song, Recommender
+from src.rag import rag_recommend
 
-
-def print_recommendations(profile_name: str, user_prefs: dict, songs: list, k: int = 5) -> None:
-    """Helper function to print recommendations for a user profile."""
-    recommendations = recommend_songs(user_prefs, songs, k=k)
-
+def print_rag_recommendations(user_request: str, recommendations: list) -> None:
+    """Helper function to print RAG-based recommendations."""
     print("\n" + "=" * 70)
-    print(f"  {profile_name}")
+    print(f"  User Request: {user_request}")
     print("=" * 70)
-    print(f"  Profile: genre={user_prefs['favorite_genre']} | mood={user_prefs['favorite_mood']}")
-    print(f"           energy={user_prefs['target_energy']} | acousticness={user_prefs['target_acousticness']}")
-    print("=" * 70)
-
-    for rank, (song, score, explanation) in enumerate(recommendations, start=1):
-        print(f"\n  #{rank}  {song['title']}  (Score: {score:.3f})")
-        print(f"      Artist : {song['artist']}")
-        print(f"      Genre  : {song['genre']}  |  Mood: {song['mood']}")
-        print(f"      Energy : {song['energy']}  |  Acousticness: {song['acousticness']}")
-        print(f"      Why:")
-        for reason in explanation.split("; "):
-            if reason.strip():
-                print(f"        • {reason.strip()}")
+    
+    for rank, rec in enumerate(recommendations, start=1):
+        print(f"\n  #{rank}  {rec['title']}  (ID: {rec['song_id']})")
+        print(f"      Artist : {rec['artist']}")
+        print(f"      Genre  : {rec['genre']}  |  Mood: {rec['mood']}")
+        print(f"      Energy : {rec['energy']:.2f}  |  Acousticness: {rec['acousticness']:.2f}")
+        print(f"      AI Explanation:")
+        print(f"        {rec['explanation']}")
     print("\n" + "=" * 70)
-
 
 def main() -> None:
-    songs = load_songs("data/songs.csv")
+    # Load songs from CSV
+    songs_data = load_songs("data/songs.csv")
+    songs = [Song(**song) for song in songs_data]  # Convert to Song objects
+    recommender = Recommender(songs)
+    
     print(f"\n✓ Loaded {len(songs)} songs")
-
-    # Profile 1: Mainstream Pop Energizer — Tests aligned preferences where all signals point to the same recommendation.
-    profile_1 = {
-        "favorite_genre": "pop",
-        "favorite_mood": "happy",
-        "target_energy": 0.80,
-        "target_acousticness": 0.10,
-    }
-
-    # Profile 2: Lo-fi Study Nester — Tests low-energy, high-acousticness preference; opposite end of spectrum from Profile 1.
-    profile_2 = {
-        "favorite_genre": "lofi",
-        "favorite_mood": "chill",
-        "target_energy": 0.40,
-        "target_acousticness": 0.75,
-    }
-
-    # Edge Case 1: Jazz Relax — Tests how the system ranks a rare genre (1 song) vs. mood/energy matches; reveals genre vs. vibe trade-offs.
-    edge_case_1 = {
-        "favorite_genre": "jazz",
-        "favorite_mood": "relaxed",
-        "target_energy": 0.35,
-        "target_acousticness": 0.80,
-    }
-
-    # Run recommendations for all three profiles
-    print_recommendations("PROFILE 1: Mainstream Pop Energizer", profile_1, songs, k=5)
-    print_recommendations("PROFILE 2: Lo-fi Study Nester", profile_2, songs, k=5)
-    print_recommendations("EDGE CASE 1: Jazz Relax (Rare Genre Test)", edge_case_1, songs, k=5)
-
-    print("\n✓ Evaluation complete\n")
-
+    
+    # Example user request (can be made interactive later)
+    user_request = "Give me chill music for studying"
+    
+    # Get RAG recommendations
+    recommendations = rag_recommend(user_request, recommender, k=3)
+    
+    if recommendations:
+        print_rag_recommendations(user_request, recommendations)
+    else:
+        print("No recommendations generated. Check API key and try again.")
+    
+    print("\n✓ RAG evaluation complete\n")
 
 if __name__ == "__main__":
     main()
