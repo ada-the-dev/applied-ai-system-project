@@ -31,6 +31,7 @@ def make_small_recommender() -> Recommender:
 
 
 def test_recommend_returns_songs_sorted_by_score():
+    # Check that the recommender orders songs by score, favoring exact genre and mood matches.
     user = UserProfile(
         favorite_genre="pop",
         favorite_mood="happy",
@@ -47,6 +48,7 @@ def test_recommend_returns_songs_sorted_by_score():
 
 
 def test_explain_recommendation_returns_non_empty_string():
+    # Ensure explain_recommendation returns a non-empty rationale for a recommended song.
     user = UserProfile(
         favorite_genre="pop",
         favorite_mood="happy",
