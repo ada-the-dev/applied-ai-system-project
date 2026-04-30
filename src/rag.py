@@ -7,11 +7,15 @@ from src.gemini_client import generate_text
 # Path to the song docs
 SONG_DOCS_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "song_docs.json")
 
+# This function will parse the json file into a list of dictionaries.
+# Each dictionary will represent a song and its attributes.
 def load_song_docs() -> List[Dict[str, Any]]:
     """Load song documentation from JSON file."""
     with open(SONG_DOCS_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
 
+# This function will take in the user's request and the list of song documents, and it will return a list of the 
+# most relevant song documents based on keyword matching.
 def retrieve_relevant_docs(user_request: str, song_docs: List[Dict[str, Any]], top_k: int = 5) -> List[Dict[str, Any]]:
     """
     Retrieve the top-k most relevant song documents based on keyword matching.
@@ -41,6 +45,7 @@ def retrieve_relevant_docs(user_request: str, song_docs: List[Dict[str, Any]], t
         for keyword in keywords:
             if keyword in text_to_check:
                 score += 1
+        # After loop is over, the score for a song is appended.
         scored_docs.append((doc, score))
     
     # Sort documents by score in descending order (highest matches first)
@@ -48,22 +53,28 @@ def retrieve_relevant_docs(user_request: str, song_docs: List[Dict[str, Any]], t
     # Return only the documents, not the scores
     return [doc for doc, _ in scored_docs[:top_k]]
 
-def build_rag_prompt(user_request: str, retrieved_docs: List[Dict[str, Any]], candidate_songs: List[Song]) -> str:
+# This function will build a prompt for Gemini that includes the user's request, the retrieved song documents, 
+# and the candidate songs from the recommender. 
+# The prompt will ask Gemini to rank the candidate songs and provide explanations 
+# based on the retrieved context.
+def build_rag_prompt(user_request: str, retrieved_docs: List[Dict[str, Any]], candidate_songs: List[Song], user_profile: UserProfile) -> str:
     """
     Build a prompt for Gemini to rank and explain song recommendations using RAG context.
-    
+
     The prompt includes:
     - The user's original request
+    - The user's taste profile
     - Retrieved song documents for context
     - List of candidate songs to rank
-    
+
     This allows Gemini to use retrieved information to make more informed recommendations.
-    
+
     Args:
         user_request: The user's plain-English request.
         retrieved_docs: List of relevant song documents from retrieval.
         candidate_songs: List of Song objects from the recommender's initial selection.
-    
+        user_profile: The user's taste preferences.
+
     Returns:
         A formatted prompt string for Gemini.
     """
@@ -72,16 +83,26 @@ def build_rag_prompt(user_request: str, retrieved_docs: List[Dict[str, Any]], ca
         f"- Song {doc['song_id']}: {doc['title']} - {doc['description']} Mood: {doc['mood_summary']}. Context: {doc['listening_context']}."
         for doc in retrieved_docs
     ])
-    
+
     # Format candidate songs with their attributes
     songs_text = "\n".join([
         f"- Song {song.id}: {song.title} by {song.artist} (Genre: {song.genre}, Mood: {song.mood}, Energy: {song.energy:.2f}, Acousticness: {song.acousticness:.2f})"
         for song in candidate_songs
     ])
-    
+
+    # Format the user's taste profile
+    profile_text = (
+        f"Favorite genre: {user_profile.favorite_genre}, "
+        f"Favorite mood: {user_profile.favorite_mood}, "
+        f"Target energy: {user_profile.target_energy:.2f}, "
+        f"Target acousticness: {user_profile.target_acousticness:.2f}"
+    )
+
     # Construct the full prompt
     prompt = f"""
 You are a music recommendation assistant. A user has requested: "{user_request}"
+
+User taste profile: {profile_text}
 
 Here is some relevant information about songs that might match their request:
 {docs_text}
@@ -89,7 +110,7 @@ Here is some relevant information about songs that might match their request:
 From our catalog, here are some candidate songs to consider:
 {songs_text}
 
-Based on the user's request and the retrieved song information, rank the top 3 candidate songs that best match. For each top song, provide:
+Based on the user's request, their taste profile, and the retrieved song information, rank the top 3 candidate songs that best match. For each top song, provide:
 1. The song ID and title
 2. A brief explanation of why it fits, using details from the retrieved information
 3. How it aligns with the user's request
@@ -182,7 +203,7 @@ def rag_recommend(user_request: str, recommender: Recommender, k: int = 3) -> Li
     candidate_songs = recommender.recommend(default_profile, k=10)  # Get more candidates for ranking
     
     # Build the RAG prompt
-    prompt = build_rag_prompt(user_request, retrieved_docs, candidate_songs)
+    prompt = build_rag_prompt(user_request, retrieved_docs, candidate_songs, default_profile)
     
     # Get AI-ranked recommendations
     ranked_results = rank_songs_with_gemini(prompt)
